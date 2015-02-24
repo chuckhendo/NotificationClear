@@ -23,6 +23,13 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2015 Carl Henderson. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>MySamplePlugin</string>
+    <key>SIMBLTargetApplications</key>
+    <array>
+        <dict>
+            <key>BundleIdentifier</key>
+            <string>com.apple.notificationcenterui</string>
+        </dict>
+    </array>
 </dict>
 </plist>
