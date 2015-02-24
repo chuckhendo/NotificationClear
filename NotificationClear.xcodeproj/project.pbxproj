@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6CA6E890EB9539A7061D853F /* libPods-DockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8918DDCDCA27BE5A5DB3B3 /* libPods-DockTests.a */; };
 		A747A63F1A9BA62D0046B55B /* NotificationClear.m in Sources */ = {isa = PBXBuildFile; fileRef = A747A63E1A9BA62D0046B55B /* NotificationClear.m */; };
-		A747A6491A9BC3070046B55B /* ClearAllButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = A747A6471A9BC3070046B55B /* ClearAllButton.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,10 +17,6 @@
 		76B8C0CF6B02473CE636996A /* Pods-DockTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DockTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DockTests/Pods-DockTests.release.xcconfig"; sourceTree = "<group>"; };
 		A747A63D1A9BA62D0046B55B /* NotificationClear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationClear.h; sourceTree = "<group>"; };
 		A747A63E1A9BA62D0046B55B /* NotificationClear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationClear.m; sourceTree = "<group>"; };
-		A747A6471A9BC3070046B55B /* ClearAllButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClearAllButton.xib; sourceTree = "<group>"; };
-		A747A64A1A9BC8DE0046B55B /* DockTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DockTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		A747A64D1A9BCA4A0046B55B /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
-		A747A64E1A9BCC730046B55B /* NCNotificationTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NCNotificationTableController.h; sourceTree = "<group>"; };
 		A7B30BA11A9BA5E500B08F72 /* NotificationClear.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotificationClear.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7B30BA51A9BA5E500B08F72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,10 +74,6 @@
 				A7B30BA41A9BA5E500B08F72 /* Supporting Files */,
 				A747A63D1A9BA62D0046B55B /* NotificationClear.h */,
 				A747A63E1A9BA62D0046B55B /* NotificationClear.m */,
-				A747A64D1A9BCA4A0046B55B /* MyPlayground.playground */,
-				A747A64E1A9BCC730046B55B /* NCNotificationTableController.h */,
-				A747A6471A9BC3070046B55B /* ClearAllButton.xib */,
-				A747A64A1A9BC8DE0046B55B /* DockTests-Bridging-Header.h */,
 			);
 			path = DockTests;
 			sourceTree = "<group>";
@@ -154,7 +145,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A747A6491A9BC3070046B55B /* ClearAllButton.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
