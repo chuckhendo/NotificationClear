@@ -15,62 +15,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface MyManager : NSObject {
-    NSButton *someProperty;
-}
-
-@property (nonatomic, retain) NSButton *someProperty;
-
-+ (id)sharedManager;
-
-@end
-
-static MyManager *sharedMyManager = nil;
-
-@implementation MyManager
-
-@synthesize someProperty;
-
-#pragma mark Singleton Methods
-+ (id)sharedManager {
-    @synchronized(self) {
-        if(sharedMyManager == nil)
-            sharedMyManager = [[super allocWithZone:NULL] init];
-    }
-    return sharedMyManager;
-}
-+ (id)allocWithZone:(NSZone *)zone {
-    return [[self sharedManager] retain];
-}
-- (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-- (id)retain {
-    return self;
-}
-- (unsigned)retainCount {
-    return UINT_MAX; //denotes an object that cannot be released
-}
-- (oneway void)release {
-    // never release
-}
-- (id)autorelease {
-    return self;
-}
-- (id)init {
-    if (self = [super init]) {
-        someProperty = [[NSButton alloc] init];
-        [ someProperty setHidden:true ];
-    }
-    return self;
-}
-- (void)dealloc {
-    // Should never be called, but just here for clarity really.
-    [someProperty release];
-    [super dealloc];
-}
-
-@end
+NSButton *clearAllBtn = nil;
 
 @interface _NotificationClear : NSObject
 @end
@@ -78,6 +23,7 @@ static MyManager *sharedMyManager = nil;
 @implementation _NotificationClear
 
 +(void)load {
+    clearAllBtn = [[NSButton alloc] init];
     ZKSwizzle(_WB_NCNotificationTableController, NCNotificationTableController);
     ZKSwizzle(_WB_NCTodayViewController, NCTodayViewController);
 }
@@ -92,9 +38,6 @@ static MyManager *sharedMyManager = nil;
 - (void)notificationCenterTabWillBeShown
 {
     ZKOrig(void);
-    
-    MyManager *sharedManager = [MyManager sharedManager];
-    NSButton *clearAllBtn = sharedManager.someProperty;
     
     if(! clearAllBtn.hidden)
     {
@@ -125,9 +68,6 @@ static MyManager *sharedMyManager = nil;
     
     NSScrollView *ttt = ZKHookIvar(self, NSScrollView *, "_tableScrollView");
     NSView *test = (NSView *)ttt.superview.superview.superview;
-    
-    MyManager *sharedManager = [MyManager sharedManager];
-    NSButton *clearAllBtn = sharedManager.someProperty;
     
     static dispatch_once_t once;
     dispatch_once(&once, ^ {
