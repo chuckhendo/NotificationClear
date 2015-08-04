@@ -3,8 +3,9 @@
 //  DockTests
 //
 //  Re-written for learning and El Capitan by Wolfgang Baird on 8/3/15.
+//  Now supports 10.9 to 10.11
 //
-//  Confirmed compatible on builds 15A244d, x, and x
+//  Confirmed compatible on builds 15A244d (CAP), 14F19a (YOSE), and 13F1096 (MAV)
 //
 //  Copyright (c) 2015 Carl Henderson. All rights reserved.
 //  Copyright (c) 2015 Wolfgang Baird. All rights reserved.
@@ -16,6 +17,53 @@
 #import <QuartzCore/QuartzCore.h>
 
 NSButton *clearAllBtn = nil;
+
+void _WB_NCNShow(NSViewController * nsv) {
+    NSScrollView *ttt = ZKHookIvar(nsv, NSScrollView *, "_tableScrollView");
+    NSView *test = (NSView *)ttt.superview.superview.superview;
+    
+    static dispatch_once_t once;
+    dispatch_once(&once, ^ {
+        int buttonWidth = 80;
+        int buttonHeight = 32;
+        int buttonTop = 5;
+        int ncWidth = ((NSView *)[nsv valueForKey:@"_tableScrollView"]).frame.size.width;
+        int buttonLeft = (ncWidth / 2) - (buttonWidth / 2);
+        NSRect frame;
+        
+        if ([[NSProcessInfo processInfo] operatingSystemVersion].minorVersion > 9)
+        {
+            buttonHeight = 32;
+            buttonLeft = (ncWidth / 2) - (buttonWidth / 2);
+            
+        } else {
+            buttonHeight = 30;
+            buttonLeft = (ncWidth / 2) + (buttonWidth / 4);
+        }
+        
+        frame = NSMakeRect(buttonLeft, buttonTop, buttonWidth, buttonHeight);
+        
+        [clearAllBtn setFrame:frame];
+        [clearAllBtn setTarget:nsv];
+        [clearAllBtn setTitle:@"Clear"];
+        [clearAllBtn setAction:@selector(clearNotifications:)];
+        [clearAllBtn setBezelStyle:NSRoundedBezelStyle];        // NSRecessedBezelStyle
+        [clearAllBtn setHidden:NO];
+        [test addSubview:clearAllBtn];
+    });
+    
+    if (clearAllBtn.hidden)
+    {
+        [clearAllBtn setHidden:NO];
+    }
+}
+
+void _WB_NCTShow() {
+    if(! clearAllBtn.hidden)
+    {
+        [clearAllBtn setHidden:YES];
+    }
+}
 
 @interface _NotificationClear : NSObject
 @end
@@ -35,14 +83,18 @@ NSButton *clearAllBtn = nil;
 
 @implementation _WB_NCTodayViewController
 
+// 10.9 + 10.10 support
+- (void)willBeShown
+{
+    ZKOrig(void);
+    _WB_NCTShow();
+}
+
+// 10.11 support
 - (void)notificationCenterTabWillBeShown
 {
     ZKOrig(void);
-    
-    if(! clearAllBtn.hidden)
-    {
-        [clearAllBtn setHidden:YES];
-    }
+    _WB_NCTShow();
 }
 @end
 
@@ -62,50 +114,17 @@ NSButton *clearAllBtn = nil;
     }
 }
 
+// 10.9 + 10.10 support
+- (void) tableWillBeShown {
+    ZKOrig(void);
+    _WB_NCNShow(self);
+}
+
+// 10.11 support
 - (void) notificationCenterTabWillBeShown
 {
     ZKOrig(void);
-    
-    NSScrollView *ttt = ZKHookIvar(self, NSScrollView *, "_tableScrollView");
-    NSView *test = (NSView *)ttt.superview.superview.superview;
-    
-    static dispatch_once_t once;
-    dispatch_once(&once, ^ {
-        for(NSView *subview in test.subviews)
-        {
-            if(subview.frame.size.height == 44.0)
-            {
-                int buttonWidth = 80;
-                int buttonHeight = 32;
-                
-                int wrapperHeight = subview.frame.size.height;
-                int buttonTop = (wrapperHeight / 2) - (buttonHeight / 2) - 1;
-                
-                int ncWidth = ((NSView *)[self valueForKey:@"_tableScrollView"]).frame.size.width;
-                
-                int buttonLeft = (ncWidth / 2) - (buttonWidth / 2);
-                
-                NSRect frame = NSMakeRect(buttonLeft, buttonTop, buttonWidth, buttonHeight);
-                [clearAllBtn setFrame:frame];
-                
-                [clearAllBtn.cell setBezelStyle:NSRoundedBezelStyle];
-                [clearAllBtn.cell setBackgroundColor:[NSColor redColor]];
-                
-                [clearAllBtn setTarget:self];
-                [clearAllBtn setTitle:@"Clear"];
-                [clearAllBtn setAction:@selector(clearNotifications:)];
-                
-                [subview addSubview:clearAllBtn];
-                
-                [clearAllBtn setHidden:NO];
-            }
-        }
-    });
-    
-    if (clearAllBtn.hidden)
-    {
-        [clearAllBtn setHidden:NO];
-    }
+    _WB_NCNShow(self);
 }
 
 @end
