@@ -1,6 +1,9 @@
 # NotificationClear
 SIMBL bundle to add a "Clear All" button to Notification Center on OS X.
 
+[![Build Status](https://img.shields.io/github/release/w0lfschild/NotificationClear.svg)](https://github.com/w0lfschild/NotificationClear/releases/latest)   
+[![Build Status](https://img.shields.io/github/downloads/w0lfschild/NotificationClear/latest/total.svg)](https://github.com/w0lfschild/NotificationClear/archive/master.zip)
+
 ## Requirements
 - OS X Yosemite 10.9 or above
 - [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
