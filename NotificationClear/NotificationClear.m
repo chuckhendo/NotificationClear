@@ -19,8 +19,8 @@
 NSButton *clearAllBtn = nil;
 
 void _WB_NCNShow(NSViewController * nsv) {
-    NSScrollView *ttt = ZKHookIvar(nsv, NSScrollView *, "_tableScrollView");
-    NSView *test = (NSView *)ttt.superview.superview.superview;
+    NSScrollView *_scrollView = ZKHookIvar(nsv, NSScrollView *, "_tableScrollView");
+    NSView *_superView = (NSView *)_scrollView.superview.superview.superview;
     
     static dispatch_once_t once;
     dispatch_once(&once, ^ {
@@ -49,7 +49,7 @@ void _WB_NCNShow(NSViewController * nsv) {
         [clearAllBtn setAction:@selector(clearNotifications:)];
         [clearAllBtn setBezelStyle:NSRoundedBezelStyle];        // NSRecessedBezelStyle
         [clearAllBtn setHidden:NO];
-        [test addSubview:clearAllBtn];
+        [_superView addSubview:clearAllBtn];
     });
     
     if (clearAllBtn.hidden)
