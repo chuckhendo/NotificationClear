@@ -15,4 +15,4 @@ SIMBL bundle to add a "Clear All" button to Notification Center on OS X.
 - Drag and drop the bundle file into /Library/Application Support/SIMBL/Plugins
 - Open Terminal and run
  
-        killall -KILL NotificationCenter; sleep 1; osascript -e 'tell application "NotificationCenter" to inject SIMBL into Snow Leopard'
+        osascript -e 'tell application "NotificationCenter" to inject SIMBL into Snow Leopard'
