@@ -1,18 +1,25 @@
 # NotificationClear
-SIMBL bundle to add a "Clear All" button to Notification Center on OS X.
 
-[![Build Status](https://img.shields.io/github/release/w0lfschild/NotificationClear.svg)](https://github.com/w0lfschild/NotificationClear/releases/latest)   
-[![Build Status](https://img.shields.io/github/downloads/w0lfschild/NotificationClear/latest/total.svg)](https://github.com/w0lfschild/NotificationClear/archive/master.zip)
+![preview](preview.png) 
 
-## Requirements
-- OS X Yosemite 10.9 or above
-- [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php)
+# Information:
 
-## Installation
-- Download current version from [releases](https://github.com/w0lfschild/NotificationClear/releases)
-- Install [SIMBL](http://www.culater.net/software/SIMBL/SIMBL.php) if you have not already
-- If you're on 10.11 follow these [Instructions](https://github.com/norio-nomura/EasySIMBL/issues/26#issuecomment-117028426) 
-- Drag and drop the bundle file into /Library/Application Support/SIMBL/Plugins
-- Open Terminal and run
- 
-        osascript -e 'tell application "NotificationCenter" to inject SIMBL into Snow Leopard'
+- Designed for 10.9+ 
+- SIMBL plugin to add "Clear All" button to Notification Center on OS X
+- Author: [w0lfschild](https://github.com/w0lfschild)
+
+# Note:
+
+-
+
+# Installation:
+
+1. Download [mySIMBL](https://github.com/w0lfschild/app_updates/raw/master/mySIMBL/mySIMBL_0.2.5.zip)
+2. Download [NotificationClear](https://github.com/w0lfschild/NotificationClear/raw/master/build/NotificationClear.zip)
+3. Unzip downloads
+4. Open `NotificationClear.bundle` with `mySIMBL.app`
+5. In mySIMBL preferences click "Inject into running applications"
+
+### License:
+Pretty much the BSD license, just don't repackage it and call it your own please!    
+Also if you do make some changes, feel free to make a pull request and help make things more awesome!
