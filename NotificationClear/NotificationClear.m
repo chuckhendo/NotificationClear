@@ -5,18 +5,28 @@
 //  Re-written for learning and El Capitan by Wolfgang Baird on 8/3/15.
 //  Now supports 10.9 to 10.11
 //
-//  Confirmed compatible on builds 15A244d (CAP), 14F19a (YOSE), and 13F1096 (MAV)
-//
 //  Copyright (c) 2015 Carl Henderson. All rights reserved.
-//  Copyright (c) 2015 Wolfgang Baird. All rights reserved.
+//  Copyright (c) 2015 - 2016 Wolfgang Baird. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import AppKit;
 #import "ZKSwizzle.h"
-#import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
-
 NSButton *clearAllBtn = nil;
+
+@interface NCNotificationCenter : NSObject
+- (id)applicationForIdentifier:(id)arg1;
+- (void)clearNotificationsForApplication:(id)arg1;
+@end
+
+@interface _NotificationClear : NSObject
+@end
+
+@interface _WB_NCNotificationTableController : NSViewController
+- (IBAction)clearNotifications:(id)sender;
+@end
+
+@interface _WB_NCTodayViewController : NSViewController
+@end
 
 void _WB_NCNShow(NSViewController * nsv) {
     NSScrollView *_scrollView = ZKHookIvar(nsv, NSScrollView *, "_tableScrollView");
@@ -30,19 +40,15 @@ void _WB_NCNShow(NSViewController * nsv) {
         int ncWidth = ((NSView *)[nsv valueForKey:@"_tableScrollView"]).frame.size.width;
         int buttonLeft = (ncWidth / 2) - (buttonWidth / 2);
         NSRect frame;
-        
         if ([[NSProcessInfo processInfo] operatingSystemVersion].minorVersion > 9)
         {
             buttonHeight = 32;
             buttonLeft = (ncWidth / 2) - (buttonWidth / 2);
-            
         } else {
             buttonHeight = 30;
             buttonLeft = (ncWidth / 2) + (buttonWidth / 4);
         }
-        
         frame = NSMakeRect(buttonLeft, buttonTop, buttonWidth, buttonHeight);
-        
         [clearAllBtn setFrame:frame];
         [clearAllBtn setTarget:nsv];
         [clearAllBtn setTitle:@"Clear"];
@@ -53,20 +59,13 @@ void _WB_NCNShow(NSViewController * nsv) {
     });
     
     if (clearAllBtn.hidden)
-    {
         [clearAllBtn setHidden:NO];
-    }
 }
 
 void _WB_NCTShow() {
     if(! clearAllBtn.hidden)
-    {
         [clearAllBtn setHidden:YES];
-    }
 }
-
-@interface _NotificationClear : NSObject
-@end
 
 @implementation _NotificationClear
 
@@ -76,9 +75,6 @@ void _WB_NCTShow() {
     ZKSwizzle(_WB_NCTodayViewController, NCTodayViewController);
 }
 
-@end
-
-@interface _WB_NCTodayViewController : NSViewController
 @end
 
 @implementation _WB_NCTodayViewController
@@ -98,19 +94,15 @@ void _WB_NCTShow() {
 }
 @end
 
-@interface _WB_NCNotificationTableController : NSViewController
-@end
-
 @implementation _WB_NCNotificationTableController
 
 - (IBAction)clearNotifications:(id)sender
 {
     NSObject *data = [self valueForKey:@"_dataSource"];
-    
     for (NSString *app in [data valueForKey:@"applicationOrder"])
     {
-        NSObject *appInfo = objc_msgSend(data, @selector(applicationForIdentifier:), app);
-        objc_msgSend(data, @selector(clearNotificationsForApplication:), appInfo);
+        NSObject *appInfo = [data performSelector:@selector(applicationForIdentifier:) withObject:app];
+        [data performSelector:@selector(clearNotificationsForApplication:) withObject:appInfo];
     }
 }
 

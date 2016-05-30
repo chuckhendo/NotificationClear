@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		FB3EDF6C1B707F1200E96DC9 /* NotificationClear.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3EDF6A1B707F1200E96DC9 /* NotificationClear.m */; };
 		FB3EDF6D1B707F1200E96DC9 /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3EDF6B1B707F1200E96DC9 /* ZKSwizzle.m */; };
-		FB3EDF721B707FEF00E96DC9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB3EDF711B707FEF00E96DC9 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,7 +123,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB3EDF721B707FEF00E96DC9 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
